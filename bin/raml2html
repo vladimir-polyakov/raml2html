@@ -2,7 +2,9 @@
 
 'use strict';
 
+const chalk = require('chalk');
 const fs = require('fs');
+const path = require('path');
 const yargs = require('yargs');
 const raml2html = require('..');
 const pjson = require('../package.json');
@@ -21,6 +23,8 @@ const argv = yargs
   .string('o')
   .string('t')
   .string('theme')
+  .boolean('pretty-errors')
+  .boolean('suppress-warnings')
   .boolean('v')
   .boolean('p')
   .describe('i', 'Input file')
@@ -28,6 +32,7 @@ const argv = yargs
   .describe('t', 'Template path')
   .describe('v', 'Validate RAML and examples (off by default)')
   .describe('p', 'Make the output file pretty (readable)')
+  .describe('pretty-errors', 'Make the validate output pretty')
   .describe('theme', 'Theme name')
   .example('raml2html example.raml > example.html')
   .example(
@@ -74,6 +79,30 @@ function writeOutput(result, config, argv) {
   });
 }
 
+function errorPath(error) {
+  const dir = path.dirname(input);
+
+  return `${path.join(dir, error.path)}:${error.range.start.line}:${error.range.start.column}`;
+}
+
+function errorMessage(error) {
+  return `${error.code}: ${error.message}`;
+}
+
+function writeParserErrors(parserErrors) {
+  parserErrors.forEach((error) => {
+    let message = `[${errorPath(error)}] ${errorMessage(error)}`;
+
+    if (error.isWarning) {
+      message = chalk.yellow(message);
+    } else {
+      message = chalk.red(message);
+    }
+
+    console.error(message);
+  });
+}
+
 // Start the rendering process
 raml2html
   .render(input, config, argv)
@@ -83,10 +112,22 @@ raml2html
   .then(() => process.exit(0))
   .catch(error => {
     if (error.message) {
-      console.error(error.message);
+      console.error(chalk.bgRed(error.message) + '\n');
     }
+
     if (error.parserErrors) {
-      console.error(JSON.stringify(error.parserErrors, null, 2));
+      let parserErrors = error.parserErrors;
+
+      if (argv.suppressWarnings) {
+        parserErrors = parserErrors.filter((error) => !error.isWarning);
+      }
+
+      if (argv.prettyErrors) {
+        writeParserErrors(parserErrors);
+      } else {
+        console.error(JSON.stringify(parserErrors, null, 2));
+      }
     }
+
     process.exit(1);
   });
