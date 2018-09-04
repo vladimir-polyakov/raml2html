@@ -1,5 +1,5 @@
 const t = require('tap');
-const {spawnSync} = require('child_process');
+const { spawnSync } = require('child_process');
 const path = require('path');
 
 function getStderr(spawned) {
@@ -53,7 +53,10 @@ t.test('raml2html', t => {
 
     t.test('pretty print without warnings', t => {
       const raml2html = spawn([
-        '-v', '--pretty-errors', '--suppress-warnings', raml
+        '-v',
+        '--pretty-errors',
+        '--suppress-warnings',
+        raml,
       ]);
 
       t.same(raml2html.status, 1, 'check status');

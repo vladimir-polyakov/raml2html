@@ -23,7 +23,6 @@
   "devDependencies": {
     "eslint": "4.x",
     "eslint-plugin-prettier": "2.x",
-    "execa": "^1.0.0",
     "prettier": "1.x",
     "tap": "^12.0.1"
   },
