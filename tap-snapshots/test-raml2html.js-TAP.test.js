@@ -4,10 +4,8 @@
  * Re-generate by setting TAP_SNAPSHOT=1 and running tests.
  * Make sure to inspect the output below.  Do not ignore changes!
  */
-'use strict';
-exports[
-  `test/raml2html.js TAP raml2html with validation json errors > json output 1`
-] = `
+'use strict'
+exports[`test/raml2html.js TAP raml2html with validation json errors > json output 1`] = `
 Api contains errors.
 
 [
@@ -143,11 +141,9 @@ Api contains errors.
   }
 ]
 
-`;
+`
 
-exports[
-  `test/raml2html.js TAP raml2html with validation json errors suppress warnings > without warnings json output 1`
-] = `
+exports[`test/raml2html.js TAP raml2html with validation json errors suppress warnings > without warnings json output 1`] = `
 Api contains errors.
 
 [
@@ -265,29 +261,25 @@ Api contains errors.
   }
 ]
 
-`;
+`
 
-exports[
-  `test/raml2html.js TAP raml2html with validation pretty print > pretty printed output 1`
-] = `
+exports[`test/raml2html.js TAP raml2html with validation pretty print > pretty printed output 1`] = `
 Api contains errors.
 
-INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
-UNRECOGNIZED_ELEMENT: Unrecognized resource type: 'collection'.
-REQUIRED_PROPERTY_MISSING: Required property 'foobar' is missing
-UNKNOWN_PROPERTY: Unknown property: 'baz'
-INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
+[/test/fixtures/traits/offset.raml:3:2] INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
+[/test/fixtures/api.raml:8:2] UNRECOGNIZED_ELEMENT: Unrecognized resource type: 'collection'.
+[/test/fixtures/api.raml:21:12] REQUIRED_PROPERTY_MISSING: Required property 'foobar' is missing
+[/test/fixtures/api.raml:22:14] UNKNOWN_PROPERTY: Unknown property: 'baz'
+[/test/fixtures/traits/offset.raml:3:2] INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
 
-`;
+`
 
-exports[
-  `test/raml2html.js TAP raml2html with validation pretty print without warnings > pretty printed output 1`
-] = `
+exports[`test/raml2html.js TAP raml2html with validation pretty print without warnings > pretty printed output 1`] = `
 Api contains errors.
 
-INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
-UNRECOGNIZED_ELEMENT: Unrecognized resource type: 'collection'.
-REQUIRED_PROPERTY_MISSING: Required property 'foobar' is missing
-INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
+[/test/fixtures/traits/offset.raml:3:2] INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
+[/test/fixtures/api.raml:8:2] UNRECOGNIZED_ELEMENT: Unrecognized resource type: 'collection'.
+[/test/fixtures/api.raml:21:12] REQUIRED_PROPERTY_MISSING: Required property 'foobar' is missing
+[/test/fixtures/traits/offset.raml:3:2] INHERITING_UNKNOWN_TYPE: Inheriting from unknown type
 
-`;
+`
